@@ -1,14 +1,58 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>
+            Valor Bitcoin
+        </ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+    Selecione a criptomoeda desejada:
+
+    <ion-list>
+        <ion-item>
+            <ion-label>Criptomoeda</ion-label>
+            <ion-select [(ngModel)]="moedaSelecionada" (ionChange)="buscarTicker($event)">
+                <ion-option *ngFor="let moeda of listaMoedas" [value]="moeda">{{moeda.descricao}}</ion-option>
+            </ion-select>
+        </ion-item>
+    </ion-list>
+
+    <ion-card *ngIf="moedaSelecionada">
+
+        <p>Preço unitário da última negociação:</p>
+        <ion-item>
+            <ion-icon *ngIf="isBitcoin()" name="logo-bitcoin"> {{ ticker.ultimoPreco }}</ion-icon>
+            <ion-icon *ngIf="!isBitcoin()" name="logo-usd"> {{ ticker.ultimoPreco }}</ion-icon>
+        </ion-item>
+
+        <p>Maior preço unitário de negociação das últimas 24 horas:</p>
+        <ion-item>
+            <p>{{ ticker.maiorValor }}</p>
+        </ion-item>
+
+        <p>Menor preço unitário de negociação das últimas 24 horas:</p>
+        <ion-item>
+            <p>{{ ticker.menorValor }}</p>
+        </ion-item>
+
+        <p>Quantidade negociada nas últimas 24 horas:</p>
+        <ion-item>
+            <p>{{ ticker.volume }}</p>
+        </ion-item>
+
+        <p>Maior preço de oferta de compra das últimas 24 horas:</p>
+        <ion-item>
+            <p>{{ ticker.precoCompra }}</p>
+        </ion-item>
+
+        <p>Menor preço de oferta de venda das últimas 24 horas:</p>
+        <ion-item>
+            <p>{{ ticker.precoVenda }}</p>
+        </ion-item>
+
+        <p>
+            * Valores obtidos através da API de dados Mercado Bitcoin
+        </p>
+    </ion-card>
 </ion-content>
