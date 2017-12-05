@@ -18,8 +18,8 @@
         </ion-item>
     </ion-list>
 
+    <button *ngIf="moedaSelecionada" (click)="buscarTicker($event)" ion-button color="secondary" clear>Atualizar</button>
     <ion-card *ngIf="moedaSelecionada">
-
         <p>Preço unitário da última negociação:</p>
         <ion-item>
             <ion-icon *ngIf="isBitcoin()" name="logo-bitcoin"> {{ ticker.ultimoPreco }}</ion-icon>
